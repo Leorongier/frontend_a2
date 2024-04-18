@@ -25,13 +25,9 @@ def fetch_movie_details(tmdb_id):
 # Function to fetch search results from the Flask backend based on a user query
 @st.cache_data(ttl=600, show_spinner=False)
 def fetch_search_results(query):
-    backend_url = 'https://backend-a2-2-62asncaisq-oa.a.run.app/search'
-    response = requests.get(backend_url, params={'q': query})
-    if response.status_code == 200:
-        return response.json()
-    else:
-        st.error('Failed to fetch search results.')
-        return []
+    backend_url = f"https://backend-a2-2-62asncaisq-oa.a.run.app/search?q={query}"
+    response = requests.get(backend_url)
+    return response.json() if response.status_code == 200 else []
 
 # Initialize or fetch the list of movies in the watch list from session state
 if 'watch_list' not in st.session_state:
@@ -39,44 +35,45 @@ if 'watch_list' not in st.session_state:
 
 with st.sidebar:
     st.title("🎬 My Watch List")
+    # On crée une copie pour itérer car nous allons modifier la liste originale en cas de suppression
     for movie in st.session_state['watch_list'][:]:
         with st.expander(f"{movie['title']}"):
             st.write(f"Genres: {movie['genres']}")
             if st.button(f"Retirer de la Watch List", key=f"remove-{movie['movieId']}"):
+                # Supprimer le film de la liste de surveillance
                 st.session_state['watch_list'].remove(movie)
-                st.experimental_rerun() 
+                st.experimental_rerun()  # Relancer le script pour mettre à jour la sidebar
 
 # Main area for movie search
 st.title("🔍 Search a Movie")
 query = st.text_input("Type a movie title to search:", key="search_query")
-
-# Display the search results as a selectbox with movie titles
 if query:
     search_results = fetch_search_results(query)
     if search_results:
-        movie_titles = [movie['title'] for movie in search_results]
-        selected_title = st.selectbox("Select a movie:", movie_titles)
-        if movie_titles:
-            selected_title = st.selectbox("Select a movie:", movie_titles)
-            selected_movie = next((movie for movie in search_results if movie['title'] == selected_title), None)
-            if selected_movie and selected_movie.get('poster_path'):
-                st.image(selected_movie['poster_path'], caption=selected_movie['title'])
-                st.write(f"Genres: {selected_movie.get('genres', 'Unknown')}")
-                st.write(f"Overview: {selected_movie.get('overview', 'No description available.')}")
-                if st.button("➕ Add to Watch List", key=f"add-{selected_movie['movieId']}"):
-                    if selected_movie not in st.session_state.watch_list:
-                        st.session_state.watch_list.append(selected_movie)
-        else:
-            st.write("No movies found.")
-    else:
-        st.write("Start typing to search for movies...")
+        selected_title = st.selectbox("Search Results:", [movie['title'] for movie in search_results])
+        selected_movie = next((movie for movie in search_results if movie['title'] == selected_title), None)
+        if selected_movie:
+            # Check if there is a valid poster path. If not, display a placeholder or message.
+            poster_path = selected_movie.get('poster_path')
+            if poster_path:
+                st.image(poster_path, caption='Movie Poster')
+            else:
+                st.write("No poster available for this movie.")
+
+            st.write(f"Title: {selected_movie['title']}")
+            st.write(f"Genres: {selected_movie.get('genres', 'Unknown')}")
+            st.write(f"Overview: {selected_movie.get('overview', 'No description available.')}")
+            # Add to watch list button
+            if st.button("➕ Add to Watch List", key=f"add-{selected_movie['movieId']}"):
+                if selected_movie not in st.session_state['watch_list']:
+                    st.session_state['watch_list'].append(selected_movie)
 
 # Recommendations section, displaying suggested movies for a user
 st.title("🌟 Movie Recommendations")
 
 @st.cache_data(ttl=600, show_spinner=False)
 def get_recommendations_from_backend(preferred_movies):
-    backend_url = 'http://127.0.0.1:5000/recommendations'
+    backend_url = 'https://backend-a2-2-62asncaisq-oa.a.run.app/recommendations'
     response = requests.post(backend_url, json={'preferred_movies': preferred_movies})
     if response.status_code == 200:
         return response.json()
