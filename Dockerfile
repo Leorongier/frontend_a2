@@ -2,12 +2,12 @@ FROM python:3.10
 
 WORKDIR /app
 
-COPY Frontend/requirements.txt /app
+COPY requirements.txt /app
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-COPY Frontend/app.py /app/
+COPY app.py /app/
 
-COPY Frontend/key.json /app/
+COPY key.json /app/
 
 # Set the environment variable PORT
 ENV PORT 8080
