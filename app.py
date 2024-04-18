@@ -7,13 +7,13 @@ st.set_page_config(layout="wide")
 
 # Function to fetch movies from the Flask backend server
 def fetch_movies():
-    backend_url = 'https://backend-service-a2-62asncaisq-oa.a.run.app//load_movies'
+    backend_url = 'https://backend-a2-62asncaisq-oa.a.run.app/load_movies'
     response = requests.get(backend_url)
     return pd.DataFrame(response.json()) if response.status_code == 200 else st.error('Failed to fetch movies from the backend.')
 
 # Function to fetch movie details from the Flask backend using TMDB ID
 def fetch_movie_details(tmdb_id):
-    backend_url = backend_url = f'https://backend-service-a2-62asncaisq-oa.a.run.app/movie_details?tmdb_id={tmdb_id}'
+    backend_url = backend_url = f'https://backend-a2-62asncaisq-oa.a.run.app/movie_details?tmdb_id={tmdb_id}'
 
     response = requests.get(backend_url)
     if response.status_code == 200:
@@ -24,7 +24,7 @@ def fetch_movie_details(tmdb_id):
 
 # Function to fetch recommendations for a user from the Flask backend
 def fetch_recommendations(user_id):
-    backend_url = f'https://backend-service-a2-62asncaisq-oa.a.run.app/recommendations?user_id={user_id}'
+    backend_url = f'https://backend-a2-62asncaisq-oa.a.run.app/recommendations?user_id={user_id}'
     response = requests.get(backend_url)
     if response.status_code == 200:
         return pd.read_json(response.text)
@@ -35,7 +35,7 @@ def fetch_recommendations(user_id):
 # Function to fetch search results from the Flask backend based on a user query
 @st.cache(ttl=600, show_spinner=False)
 def fetch_search_results(query):
-    response = requests.get(f"https://backend-service-a2-62asncaisq-oa.a.run.app/search?q={query}")
+    response = requests.get(f"https://backend-a2-62asncaisq-oa.a.run.app/search?q={query}")
     if response.status_code == 200:
         return response.json()  # Return the search results
     else:
