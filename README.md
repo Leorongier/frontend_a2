@@ -7,7 +7,7 @@
 <!-- Live Application Link -->
 <h2>🌐 Live Application</h2>
 <p>Check out the live application deployed on the cloud:</p>
-<p><a href="#[https://frontend-a2-62asncaisq-oa.a.run.app]" target="_blank">MovieQuest Frontend</a></p>
+<p><a href="https://frontend-a2-62asncaisq-oa.a.run.app" target="_blank">MovieQuest Frontend</a></p>
 
 <!-- Features -->
 <h2>🚀 Features</h2>
