@@ -1,37 +1,35 @@
-Movie Recommendation System Frontend 🎥
-About The Project
-This project is the frontend component of a movie recommendation system, designed to provide movie suggestions based on a user's watchlist. The frontend is built with Streamlit, an open-source app framework perfect for machine learning and data science projects.
+<!-- Heading for the Project Title -->
+<h1 align="center">Movie Recommendation System Frontend 🎬</h1>
 
-The interface allows users to:
+<!-- Description -->
+<p>Explore a world of movies with MovieQuest, a web application designed to offer personalized movie recommendations. Built with Streamlit and Python, it provides a dynamic and user-friendly interface for movie enthusiasts.</p>
 
-🔍 Search for movies with autocompletion features.
-🌟 Get movie recommendations.
-🎬 Manage a personal watchlist.
-This application communicates with a Flask backend to fetch movie data and recommendations, which in turn interfaces with a BigQuery database and the TMDB API for rich movie details.
+<!-- Live Application Link -->
+<h2>🌐 Live Application</h2>
+<p>Check out the live application deployed on the cloud:</p>
+<p><a href="#your-frontend-link" target="_blank">MovieQuest Frontend</a></p>
 
-Built With
-Streamlit
-Python
-Pandas
-Getting Started
-To get a local copy up and running follow these simple steps.
+<!-- Features -->
+<h2>🚀 Features</h2>
+<ul>
+  <li>Intuitive movie search with autocomplete functionality</li>
+  <li>Personalized movie recommendations tailored to user preferences</li>
+  <li>Watchlist management to keep track of your movie adventures</li>
+</ul>
 
-Prerequisites
-Python 3
-Pip
-Installation
-Clone the repo
-sh
-Copy code
-git clone https://github.com/your_username_/Project-Name.git
-Install required packages
-sh
-Copy code
-pip install -r requirements.txt
-Run the application
-sh
-Copy code
-streamlit run app.py
-Usage
-After running the application, you can add movies to your watchlist and request recommendations. The system will provide movie posters and details to enhance your experience.
+<!-- Technologies Used -->
+<h2>🛠️ Built With</h2>
+<ul>
+  <li>Streamlit</li>
+  <li>Python</li>
+  <li>Requests library</li>
+</ul>
 
+<!-- Getting Started -->
+<h2>🏁 Getting Started</h2>
+<p>Follow these steps to get your local development environment running:</p>
+<ol>
+  <li>Clone the repository using <code>git clone https://github.com/yourusername/your-frontend-repo.git</code></li>
+  <li>Install the required Python packages using <code>pip install -r requirements.txt</code></li>
+  <li>Run the Streamlit app using <code>streamlit run app.py</code></li>
+</ol>
